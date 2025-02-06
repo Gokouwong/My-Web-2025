@@ -18,7 +18,7 @@ require_once 'includes/header.php';
 <body>
     <style>
         body{
-            background-color:rgb(35, 35, 60); /* Changed background color */
+            background-color: #c2c2d6;
         }
     </style>
     <main class="main-content">
