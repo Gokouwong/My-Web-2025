@@ -24,12 +24,8 @@ $page = 'home_intro';
 
 // Process form submission if POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $title_en = $_POST['title_en'];
-    $title_zh_cn = $_POST['title_zh_cn'];
-    $title_zh_hk = $_POST['title_zh_hk'];
-    $content_en = $_POST['content_en'];
-    $content_zh_cn = $_POST['content_zh_cn'];
-    $content_zh_hk = $_POST['content_zh_hk'];
+    $title = $_POST['title'];
+    $content = $_POST['content'];
 
     // If "remove image" is checked, remove the current image
     if (isset($_POST['remove_image']) && $_POST['remove_image'] === 'on') {
@@ -72,18 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Update title and content in the database
-    $stmt = $conn->prepare("
-        UPDATE website_content 
-        SET title_en = ?, title_zh_cn = ?, title_zh_hk = ?,
-            content_en = ?, content_zh_cn = ?, content_zh_hk = ?
-        WHERE page = ?
-    ");
-    $stmt->bind_param(
-        "sssssss",
-        $title_en, $title_zh_cn, $title_zh_hk,
-        $content_en, $content_zh_cn, $content_zh_hk,
-        $page
-    );
+    $stmt = $conn->prepare("UPDATE website_content SET title = ?, content = ? WHERE page = ?");
+    $stmt->bind_param("sss", $title, $content, $page);
+    
     
     if ($stmt->execute()) {
         $message = ucfirst($page) . " page updated successfully!";
@@ -218,33 +205,13 @@ $contentData = $stmt->get_result()->fetch_assoc();
         <input type="hidden" name="page" value="<?php echo htmlspecialchars($page); ?>">
         
         <div class="form-group">
-            <label for="title_en">Title (English):</label>
-            <input type="text" id="title_en" name="title_en" value="<?php echo htmlspecialchars($contentData['title_en'] ?? ''); ?>" required>
-        </div>
+        <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($contentData['title'] ?? ''); ?>" required>
+         </div>
         
         <div class="form-group">
-            <label for="title_zh_cn">Title (Chinese - Simplified):</label>
-            <input type="text" id="title_zh_cn" name="title_zh_cn" value="<?php echo htmlspecialchars($contentData['title_zh_cn'] ?? ''); ?>" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="title_zh_hk">Title (Chinese - Traditional):</label>
-            <input type="text" id="title_zh_hk" name="title_zh_hk" value="<?php echo htmlspecialchars($contentData['title_zh_hk'] ?? ''); ?>" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="content_en">Content (English):</label>
-            <textarea id="content_en" name="content_en" rows="10" required><?php echo htmlspecialchars($contentData['content_en'] ?? ''); ?></textarea>
-        </div>
-        
-        <div class="form-group">
-            <label for="content_zh_cn">Content (Chinese - Simplified):</label>
-            <textarea id="content_zh_cn" name="content_zh_cn" rows="10" required><?php echo htmlspecialchars($contentData['content_zh_cn'] ?? ''); ?></textarea>
-        </div>
-        
-        <div class="form-group">
-            <label for="content_zh_hk">Content (Chinese - Traditional):</label>
-            <textarea id="content_zh_hk" name="content_zh_hk" rows="10" required><?php echo htmlspecialchars($contentData['content_zh_hk'] ?? ''); ?></textarea>
+        <label for="content">Content:</label>
+            <textarea id="content" name="content" rows="10" required><?php echo htmlspecialchars($contentData['content'] ?? ''); ?></textarea>
         </div>
         
         <div class="form-group">
@@ -266,11 +233,11 @@ $contentData = $stmt->get_result()->fetch_assoc();
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    if (CKEDITOR.instances['content_en']) {
-        CKEDITOR.instances['content_en'].destroy();
+    if (CKEDITOR.instances['content']) {
+        CKEDITOR.instances['content'].destroy();
     }
     
-    CKEDITOR.replace('content_en', {
+    CKEDITOR.replace('content', {
         height: '400px',
         toolbar: [
             { name: 'document', items: [ 'Source' ] },
