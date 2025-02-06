@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    padding-top: 60px; /* Height of fixed header */
+}
+
+main {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.page-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Page title styles */
+h1 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+/* Specific page container styles */
+.about-container,
+.upload-container,
+.contact-container {
+    padding-top: 0;
+} 
