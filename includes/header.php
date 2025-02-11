@@ -508,3 +508,7 @@ $current_page = str_replace('.php', '', $current_page);
     </script>
 </body>
 </html> 
+
+<meta name="description" content="First Web 2025 RAKKOOOOOOOOOOO ROCKS!">
+<meta name="keywords" content="Chiikawa, RAKKO, Gokou's Web, Web 2025">
+<meta name="robots" content="index, follow">
