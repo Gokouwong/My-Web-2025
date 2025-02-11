@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Image - MY WEB</title>
+    <title>Upload Images - MY WEB</title>
     <!--add icon link-->
     <link rel="icon" href="uploads/user_images/RAKKO.jpg" type="image/x-icon">
    
